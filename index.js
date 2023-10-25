@@ -1,0 +1,1 @@
+import { FishussyCommand } from "./commands/FishussyCommand";

@@ -1,0 +1,11 @@
+{
+  "name": "Fishussy",
+  "creator": "AnticcX",
+  "description": "A Chat Triggers module aimed to better the lives of fishers",
+  "version": "0.0.1",
+  "entry": "index.js",
+  "requires": [
+    "PogData",
+    "Vigilance"
+  ]
+}
