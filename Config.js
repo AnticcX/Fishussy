@@ -32,7 +32,7 @@ class Config {
         placeholder: "Move"
     })
     moveTracker() {
-        // this.moveTrackerDisplay.open()
+        this.moveTrackerDisplay.open()
     };
 
     // Tracker Display
@@ -53,7 +53,6 @@ class Config {
         subcategory: "Tracker Display"
     })
     trackerBackground = false;
-
 
     @ColorProperty({
         name: "Tracker Background Color",
@@ -205,7 +204,7 @@ class Config {
         subcategory: "Past Sessions",
         options: ["PlaceholderSession1", "PlaceholderSession2"]
     })
-    trackerOption = 0;
+    sessionSelected = 0;
 
     @ButtonProperty({
         name: "View Session",

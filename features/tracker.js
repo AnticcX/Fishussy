@@ -47,7 +47,7 @@ const tracker = (sc_data) => {
             if (Config.trackerOption == 1) {
                 sc_display += `&7[&d${sc_data.total_caught - player_info.last_caught}&7]${name_color}: `
                 elapse = (Date.now() - player_info.last_caught_time) / 1000
-                var [minutes, seconds] = get_time_from_miliseconds(elapse)
+                var [minutes, seconds] = getTimeFromMs(elapse)
                 sc_display += `&8(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
             }
             

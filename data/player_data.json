@@ -5,7 +5,48 @@
             "total_caught": 0,
             "good_catches": 0,
             "great_catches": 0,
-            "sea_creatures": {}
+            "sea_creatures": {
+                "squid": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276419366
+                },
+                "sea_walker": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795275
+                },
+                "sea_guardian": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795276
+                },
+                "sea_witch": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795277
+                },
+                "sea_archer": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795277
+                },
+                "rider_of_the_deep": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795277
+                },
+                "catfish": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795278
+                },
+                "sea_leech": {
+                    "caught": 0,
+                    "last_caught": 0,
+                    "last_caught_time": 1698276795278
+                }
+            }
         }
     ],
     "lifetime": {
