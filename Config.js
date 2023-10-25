@@ -46,6 +46,15 @@ class Config {
     })
     trackerOption = 0;
 
+    @SwitchProperty({
+        name: "Tracker Background",
+        description: "Adds a background behind the tracker display",
+        category: "General",
+        subcategory: "Tracker Display"
+    })
+    trackerBackground = false;
+
+
     @ColorProperty({
         name: "Tracker Background Color",
         description: "Pick a color",
