@@ -1,4 +1,4 @@
-import { toTitleCase, getTimeFromMs, getSeaCreatures, registerWhen, playerData, data, seaCreatureInfo, rarity_colors } from "../utils"
+import { toTitleCase, getTimeFromMs, getSeaCreatures, registerWhen, playerData, data, seaCreatureInfo, rarity_colors, moduleName } from "../utils"
 import Config from "../Config"
 
 const format_display = (display, sc_data) => { 
@@ -68,11 +68,11 @@ register("dragged", (dx, dy, x, y, btn) => {
 
 let display = null;
 register("tick", () => {
-    const seaCreatures = getSeaCreatures();
+    let seaCreatures = getSeaCreatures();
     Object.keys(seaCreatures).forEach((creature) => {
         seaCreatures[creature].shown = Config[`show${creature.split("_").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join("")}SC`];
     });
-    FileLib.write("FishingTracker", "data/seaCreatures.json", JSON.stringify(seaCreatures));
+    FileLib.write(moduleName, "data/seaCreatures.json", JSON.stringify(seaCreatures));
     if (!Config.showTracker && !Config.moveTrackerDisplay.isOpen()) { return display = null; }
     display = tracker(Config.trackerOption === 0 ? playerData.lifetime : playerData.sessions[0]);
 });

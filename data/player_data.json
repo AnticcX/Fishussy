@@ -1,7 +1,7 @@
 {
     "sessions": [
         {
-            "start_time": 1698267596523,
+            "start_time": 1698273804081,
             "total_caught": 0,
             "good_catches": 0,
             "great_catches": 0,
@@ -9,42 +9,47 @@
         }
     ],
     "lifetime": {
-        "total_caught": 0,
+        "total_caught": 2,
         "sea_creatures": {
-            "water_hydra": {
-                "caught": 0,
-                "last_caught": 0,
-                "last_caught_time": 1698267596632
+            "squid": {
+                "caught": 1,
+                "last_caught": 1,
+                "last_caught_time": 1698274070619
             },
-            "the_sea_emperor": {
-                "caught": 0,
-                "last_caught": 0,
-                "last_caught_time": 1698267679292
+            "sea_walker": {
+                "caught": 1,
+                "last_caught": 2,
+                "last_caught_time": 1698274185833
             },
-            "frozen_steve": {
+            "sea_guardian": {
                 "caught": 0,
                 "last_caught": 0,
-                "last_caught_time": 1698267679293
+                "last_caught_time": 1698273804247
             },
-            "frosty": {
+            "sea_witch": {
                 "caught": 0,
                 "last_caught": 0,
-                "last_caught_time": 1698267679294
+                "last_caught_time": 1698273804247
             },
-            "grinch": {
-                "caught": 0,
-                "last_caught": 0,
-                "last_caught_time": 1698267679294
+            "sea_archer": {
+                "caught": 1,
+                "last_caught": 1,
+                "last_caught_time": 1698273811541
             },
-            "yeti": {
+            "rider_of_the_deep": {
                 "caught": 0,
                 "last_caught": 0,
-                "last_caught_time": 1698267679294
+                "last_caught_time": 1698273804247
             },
-            "reindrake": {
+            "catfish": {
                 "caught": 0,
                 "last_caught": 0,
-                "last_caught_time": 1698267679294
+                "last_caught_time": 1698273804249
+            },
+            "sea_leech": {
+                "caught": 0,
+                "last_caught": 0,
+                "last_caught_time": 1698273804249
             }
         }
     }
