@@ -25,8 +25,8 @@ const format_display = (display, sc_data) => {
         }
         display.unshift(
             {"&2&aTimer": `&a${minutes}m${seconds}s`},
-            {"&4&5Great Catches": "&5" + sc_data.great_catches}, 
-            {"&3&6Good Catches": "&6" + sc_data.good_catches}
+            //{"&4&5Great Catches": "&5" + sc_data.great_catches}, 
+            //{"&3&6Good Catches": "&6" + sc_data.good_catches}
         )
     }
 
