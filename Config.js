@@ -1,8 +1,8 @@
 import { @Vigilant, @SelectorProperty, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance'
-import { playerData, sessionInfo } from "./utils"
+import { playerData, sessionInfo, moduleName } from "./utils"
 
 
-@Vigilant("FishingTracker", "FishingTracker", {
+@Vigilant(moduleName, moduleName, {
     getCategoryComparator: () => (a, b) => {
         const categories = [
             "General", 

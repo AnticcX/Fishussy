@@ -13,4 +13,4 @@ export const FishussyCommand = register("command", (...args) => {
         `&9&m${ChatLib.getChatBreak(" ")}`
     ]
     ChatLib.chat(message.join("\n"))
-}).setName("fishussy")
+}).setName("fishussy").setAliases("ft")
