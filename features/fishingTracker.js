@@ -11,12 +11,10 @@ const updateData = (sc_name, sc_data) => {
 }
 
 const register_event = (sc_name, sea_creature) => register("chat", ()  => {
-    if (Config.trackerTimerPaused ) { return }
-    
     let { lifetime, sessions } = playerData;
     updateData(sc_name, lifetime)
 
-    if (Config.trackerOption == 1) { updateData(sc_name, sessions[0]) }
+    if (Config.trackerOption == 1 && !Config.trackerTimerPaused) { updateData(sc_name, sessions[0]) }
     if (sc_name === "yeti") World.playSound("mob.enderdragon.growl", 300, 0.01);
 
 }).setCriteria(sea_creature.message);

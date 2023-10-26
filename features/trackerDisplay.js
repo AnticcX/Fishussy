@@ -63,10 +63,11 @@ const tracker = (sc_data) => {
             sc_name = sc_raw_name.replaceAll("_", " ")
             if (Config.displayNameAsRarity) { name_color = `&r${rarity_colors[sc_info.rarity]}`; }
             
-            let sc_display = `${name_color}${toTitleCase(sc_name)} `
+            let sc_display = `${name_color}${toTitleCase(sc_name)}`
 
             if (Config.trackerOption == 1) {
-                sc_display += `&8[&d${sc_data.total_caught - player_info.last_caught}&8]${name_color}: `
+                if (Config.seaCreaturesSinceLastCaught) sc_display += ` &8[&d${sc_data.total_caught - player_info.last_caught}&8]${name_color}`
+                sc_display += ": "
                 if ((Date.now() - player_info.last_caught_time) / 1000 < 0) player_info.last_caught_time = Date.now();
 
                 let [minutes, seconds] = getTimeFromMs((Date.now() - player_info.last_caught_time) / 1000)
@@ -82,7 +83,7 @@ const tracker = (sc_data) => {
                     syncSCTime(sc_data)
                     sc_data.pause_time = 0
                 }
-                sc_display += `&7(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
+                if (Config.timeSinceLastCaught) sc_display += `&7(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
             }
             
             let scData = {}
@@ -102,7 +103,7 @@ register("dragged", (dx, dy, x, y, btn) => {
 
 let display = null;
 register("tick", () => {
-    let seaCreatures = getSeaCreatures();
+    let seaCreatures = getSeaCreatures(); 
     Object.keys(seaCreatures).forEach((creature) => {
         seaCreatures[creature].shown = Config[`show${creature.split("_").map((word) => word.charAt(0).toUpperCase() + word.slice(1)).join("")}SC`];
     });
