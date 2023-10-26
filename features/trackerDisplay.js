@@ -1,4 +1,4 @@
-import { toTitleCase, getTimeFromMs, getSeaCreatures, registerWhen, playerData, data, seaCreatureInfo, rarity_colors, moduleName } from "../utils"
+import { toTitleCase, getTimeFromMs, getSeaCreatures, registerWhen, playerData, data, seaCreatureInfo, rarity_colors, moduleName, sortDict } from "../utils"
 import Config from "../Config"
 
 syncSCTime = (sc_data) => {
@@ -17,25 +17,29 @@ syncSCTime = (sc_data) => {
 
 const format_display = (display, sc_data) => {
     let [minutes, seconds] = getTimeFromMs((Date.now() - sc_data.start_time) / 1000)
+
+    display.unshift({"&5&b-:": "&b:-"})
     if (Config.trackerOption == 1) {
         if (Config.trackerTimerPaused) {
             [minutes, seconds] = getTimeFromMs((sc_data.pause_time - sc_data.start_time) / 1000)
         }
         display.unshift(
-            {"&4&5Great Catches": sc_data.great_catches}, 
-            {"&3&6Good Catches": sc_data.good_catches}, 
-            {"&2&aTimer": `${minutes}m${seconds}s`})
+            {"&2&aTimer": `&a${minutes}m${seconds}s`},
+            {"&4&5Great Catches": "&5" + sc_data.great_catches}, 
+            {"&3&6Good Catches": "&6" + sc_data.good_catches}
+        )
     }
 
-    display.unshift({"&1&eCreatures Caught": sc_data.total_caught}, {"&5&b-:": ":-"})
-    display.sort((a, b) => Renderer.getStringWidth(Object.keys(b)[0]) - Renderer.getStringWidth(Object.keys(a)[0]))
+    display.unshift({"&1&eCreatures Caught": "&e" + sc_data.total_caught})
+
+    let finalDisplay = {}
+    for (let line in display) {
+        let key = Object.keys(display[line])
+        let value = display[line][key]
+        finalDisplay[key] = value
+    }
+    finalDisplay = sortDict(finalDisplay)
     
-    const finalDisplay = display.map(sc => {
-        const sc_name = Object.keys(sc)[0]
-        const info = sc[sc_name]
-        const width_different = parseInt((Renderer.getStringWidth(ChatLib.removeFormatting(Object.keys(display[0])[0])) - Renderer.getStringWidth(ChatLib.removeFormatting(sc_name))) / 4) + 3 * 4
-        return `${sc_name}${" ".repeat(width_different)}${info}`
-    }).sort()
     return finalDisplay
 }
 
@@ -79,7 +83,7 @@ const tracker = (sc_data) => {
             }
             
             let scData = {}
-            scData[sc_display] = caught
+            scData[sc_display] = name_color + caught
             display.push(scData)
         }
     }
@@ -107,14 +111,26 @@ register("tick", () => {
 registerWhen(register("renderOverlay", () => {
     if (!display) { return; }
 
-    const maxWidth = Math.max(...display.map(a => Renderer.getStringWidth(a)));
-
+    const maxWidth = Math.max(...Object.keys(display).map(a => Renderer.getStringWidth(a)));
     bg_color = Config.bg_color;
+
     Renderer.retainTransforms(true);
     Renderer.translate(data.trackerDisplay.x, data.trackerDisplay.y);
-    if (Config.trackerBackground) Renderer.drawRect(Renderer.color(bg_color.red, bg_color.green, bg_color.blue, bg_color.alpha), -4, -4, maxWidth + 8, display.length * 9 + 8);
 
-    Renderer.drawString(display.join("\n"), 0, 0);
+    const guiWidth = maxWidth + Renderer.getStringWidth("&2&aTimer") + Renderer.getStringWidth(display["&2&aTimer"])
+    if (Config.trackerBackground) Renderer.drawRect(Renderer.color(bg_color.red, bg_color.green, bg_color.blue, bg_color.alpha), -4, -4, guiWidth + 8, Object.keys(display).length * 9 + 8);
+    
+    let x = 0
+    let y = 0
+    for (var key in Object.keys(display)) {
+        key = Object.keys(display)[key]
+        value = display[key]
+        console.log(key, value)
+        Renderer.drawString(key, x, y);
+        Renderer.drawString(value, Renderer.getStringWidth(" ")*6 + Renderer.getStringWidth(key) + (maxWidth - Renderer.getStringWidth(key)), y);
+        y += 9;
+    }
+    
     Renderer.retainTransforms(false);
 
 }), () => display);

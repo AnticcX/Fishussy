@@ -52,6 +52,17 @@ export const getSeaCreatures = () => {
     return JSON.parse(FileLib.read(moduleName, "data/seaCreatures.json")) 
 }
 
+export const sortDict = (dict) => {
+    let keys = Object.keys(dict)
+    keys = keys.sort()
+    let sorted_dict = {}
+    for (var key in keys) {
+        sc_name = keys[key]
+        sorted_dict[sc_name] = dict[sc_name]
+    }
+    return sorted_dict
+}
+
 export function toTitleCase(str) {
     return str.replace(/\w\S*/g, function(txt){
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
