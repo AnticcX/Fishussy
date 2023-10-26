@@ -84,7 +84,7 @@ const tracker = (sc_data) => {
                     sc_data.pause_time = 0
                 }
                 if (Config.timeSinceLastCaught) sc_display += `&7(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
-            }
+            } else { sc_display += ": " }
             
             let scData = {}
             scData[sc_display] = name_color + caught
@@ -121,7 +121,8 @@ registerWhen(register("renderOverlay", () => {
     Renderer.retainTransforms(true);
     Renderer.translate(data.trackerDisplay.x, data.trackerDisplay.y);
 
-    const guiWidth = maxWidth + Renderer.getStringWidth("&2&aTimer") + Renderer.getStringWidth(display["&2&aTimer"])
+    let guiWidth = maxWidth + Renderer.getStringWidth(" ")*7.5
+    if (Config.trackerOption == 1) guiWidth = maxWidth + Renderer.getStringWidth("&2&aTimer") + Renderer.getStringWidth(display["&2&aTimer"])
     if (Config.trackerBackground) Renderer.drawRect(Renderer.color(bg_color.red, bg_color.green, bg_color.blue, bg_color.alpha), -4, -4, guiWidth + 8, Object.keys(display).length * 9 + 8);
     
     let x = 0

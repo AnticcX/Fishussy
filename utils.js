@@ -32,7 +32,7 @@ export const seaCreatureInfo = () => {
     }
 }
 
-export const data = new PogObject("FishingTracker", {
+export const data = new PogObject(moduleName, {
     trackerDisplay: {
         x: 0,
         y: 0

@@ -71,22 +71,6 @@ class Config {
     })
     displayNameAsRarity = false;
 
-    @SwitchProperty({
-        name: "Time since last caught",
-        description: "Shows how long it has been since you've last caught a sea creature",
-        category: "General",
-        subcategory: "Tracker Extra Stats"
-    })
-    timeSinceLastCaught = false;
-
-    @SwitchProperty({
-        name: "Number of Sea Creatures since last caught",
-        description: "Shows how many sea creatures it has been since you've last caught &cX&r sea creature",
-        category: "General",
-        subcategory: "Tracker Extra Stats"
-    })
-    seaCreaturesSinceLastCaught = false;
-
     // ZONES / EVENTS TOGGLE
     // Default Creature Category
     @SwitchProperty({
@@ -180,6 +164,22 @@ class Config {
         subcategory: "Current Sessions",
     })
     trackerTimerPaused = false;
+
+    @SwitchProperty({
+        name: "Time since last caught",
+        description: "Shows how long it has been since you've last caught a sea creature",
+        category: "Sessions",
+        subcategory: "Tracker Extra Stats"
+    })
+    timeSinceLastCaught = false;
+
+    @SwitchProperty({
+        name: "Number of Sea Creatures since last caught",
+        description: "Shows how many sea creatures it has been since you've last caught &cX&r sea creature",
+        category: "Sessions",
+        subcategory: "Tracker Extra Stats"
+    })
+    seaCreaturesSinceLastCaught = false;
 
 
     constructor() {
