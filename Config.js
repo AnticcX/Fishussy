@@ -115,7 +115,7 @@ class Config {
         category: "Zones/Events",
         subcategory: "Zones/Events Toggle"
     })
-    showFestivalSC = false;
+    showFishingFestivalSC = false;
 
     // CH Water
     @SwitchProperty({
@@ -124,7 +124,7 @@ class Config {
         category: "Zones/Events",
         subcategory: "Zones/Events Toggle"
     })
-    showWaterCHSC = false;
+    showWaterCrystalHollowsSC = false;
 
     // Lava CH
     @SwitchProperty({
@@ -133,7 +133,7 @@ class Config {
         category: "Zones/Events",
         subcategory: "Zones/Events Toggle"
     })
-    showLavaCHSC = false;
+    showLavaCrystalHollowsSC = false;
 
     // Crimson isles
     @SwitchProperty({
@@ -142,7 +142,7 @@ class Config {
         category: "Zones/Events",
         subcategory: "Zones/Events Toggle"
     })
-    showCISC = false;
+    showCrimsonIsleSC = false;
 
     // SESSION CONFIGS
     @ButtonProperty({
@@ -164,48 +164,6 @@ class Config {
         subcategory: "Current Sessions",
     })
     trackerTimerPaused = false;
-    pauseSession() {
-        playerData.sessions[0].pause_time = Date.now()
-        playerData.save()
-        trackerTimerPaused = true
-        console.log("A")
-    };
-
-    @ButtonProperty({
-        name: "End Current Session",
-        description: "Ends the session burh",
-        category: "Sessions",
-        subcategory: "Current Sessions",
-        placeholder: "End"
-    })
-    endSession() {
-        /*playerData.sessions[0] = session_info()
-        playerData.save()
-        sessionReset = true;*/
-    };
-
-    // Past Sessions
-    @SelectorProperty({ 
-        name: "Select Session to view",
-        description: "Select the past session you want to view",
-        category: "Sessions",
-        subcategory: "Past Sessions",
-        options: ["PlaceholderSession1", "PlaceholderSession2"]
-    })
-    sessionSelected = 0;
-
-    @ButtonProperty({
-        name: "View Session",
-        description: "View the selected session",
-        category: "Sessions",
-        subcategory: "Past Sessions",
-        placeholder: "View"
-    })
-    viewSession() {
-        /*playerData.sessions[0] = session_info()
-        playerData.save()
-        sessionReset = true;*/
-    };
 
 
     constructor() {

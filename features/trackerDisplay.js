@@ -66,12 +66,15 @@ const tracker = (sc_data) => {
             let sc_display = `${name_color}${toTitleCase(sc_name)} `
 
             if (Config.trackerOption == 1) {
-                sc_display += `&7[&d${sc_data.total_caught - player_info.last_caught}&7]${name_color}: `
+                sc_display += `&8[&d${sc_data.total_caught - player_info.last_caught}&8]${name_color}: `
+                if ((Date.now() - player_info.last_caught_time) / 1000 < 0) player_info.last_caught_time = Date.now();
+
                 let [minutes, seconds] = getTimeFromMs((Date.now() - player_info.last_caught_time) / 1000)
                 if (Config.trackerTimerPaused) {
                     if (sc_data.pause_time == 0) {
                         sc_data.pause_time = Date.now() 
                     } 
+                    if ((sc_data.pause_time - player_info.last_caught_time) / 1000 < 0) player_info.last_caught_time = sc_data.pause_time;
                     [minutes, seconds] = getTimeFromMs((sc_data.pause_time - player_info.last_caught_time) / 1000)
                 }
                 if (!Config.trackerTimerPaused && !sc_data.pause_time == 0) { 
@@ -79,7 +82,7 @@ const tracker = (sc_data) => {
                     syncSCTime(sc_data)
                     sc_data.pause_time = 0
                 }
-                sc_display += `&8(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
+                sc_display += `&7(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
             }
             
             let scData = {}
@@ -125,7 +128,6 @@ registerWhen(register("renderOverlay", () => {
     for (var key in Object.keys(display)) {
         key = Object.keys(display)[key]
         value = display[key]
-        console.log(key, value)
         Renderer.drawString(key, x, y);
         Renderer.drawString(value, Renderer.getStringWidth(" ")*6 + Renderer.getStringWidth(key) + (maxWidth - Renderer.getStringWidth(key)), y);
         y += 9;
