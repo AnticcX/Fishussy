@@ -1,9 +1,26 @@
 import { toTitleCase, getTimeFromMs, getSeaCreatures, registerWhen, playerData, data, seaCreatureInfo, rarity_colors, moduleName } from "../utils"
 import Config from "../Config"
 
-const format_display = (display, sc_data) => { 
+syncSCTime = (sc_data) => {
+    const sea_creatures = getSeaCreatures()
+    for (var zone in sea_creatures) {
+        let sc_zone = sea_creatures[zone]
+        if (!sc_zone.shown) { continue; }
+        for (var sc_raw_name in sc_zone) {
+            let sc_info = sc_zone[sc_raw_name]
+            if (sc_raw_name == "shown" || !sc_info.shown) { continue; } 
+            player_info = sc_data.sea_creatures[sc_raw_name]
+            player_info.last_caught_time += Date.now() - sc_data.pause_time
+        }
+    }
+}
+
+const format_display = (display, sc_data) => {
+    let [minutes, seconds] = getTimeFromMs((Date.now() - sc_data.start_time) / 1000)
     if (Config.trackerOption == 1) {
-        const [minutes, seconds] = getTimeFromMs((Date.now() - sc_data.start_time) / 1000)
+        if (Config.trackerTimerPaused) {
+            [minutes, seconds] = getTimeFromMs((sc_data.pause_time - sc_data.start_time) / 1000)
+        }
         display.unshift(
             {"&4&5Great Catches": sc_data.great_catches}, 
             {"&3&6Good Catches": sc_data.good_catches}, 
@@ -23,13 +40,13 @@ const format_display = (display, sc_data) => {
 }
 
 const tracker = (sc_data) => {
-    var sea_creatures = getSeaCreatures()
-    display = []
+    const sea_creatures = getSeaCreatures()
+    let display = []
     for (var zone in sea_creatures) {
-        sc_zone = sea_creatures[zone]
+        let sc_zone = sea_creatures[zone]
         if (!sc_zone.shown) { continue; }
         for (var sc_raw_name in sc_zone) {
-            sc_info = sc_zone[sc_raw_name]
+            let sc_info = sc_zone[sc_raw_name]
             if (sc_raw_name == "shown" || !sc_info.shown) { continue; } 
             if (!(sc_raw_name in sc_data.sea_creatures)) {
                 sc_data.sea_creatures[sc_raw_name] = seaCreatureInfo()
@@ -42,16 +59,26 @@ const tracker = (sc_data) => {
             sc_name = sc_raw_name.replaceAll("_", " ")
             if (Config.displayNameAsRarity) { name_color = `&r${rarity_colors[sc_info.rarity]}`; }
             
-            var sc_display = `${name_color}${toTitleCase(sc_name)} `
+            let sc_display = `${name_color}${toTitleCase(sc_name)} `
 
             if (Config.trackerOption == 1) {
                 sc_display += `&7[&d${sc_data.total_caught - player_info.last_caught}&7]${name_color}: `
-                elapse = (Date.now() - player_info.last_caught_time) / 1000
-                var [minutes, seconds] = getTimeFromMs(elapse)
+                let [minutes, seconds] = getTimeFromMs((Date.now() - player_info.last_caught_time) / 1000)
+                if (Config.trackerTimerPaused) {
+                    if (sc_data.pause_time == 0) {
+                        sc_data.pause_time = Date.now() 
+                    } 
+                    [minutes, seconds] = getTimeFromMs((sc_data.pause_time - player_info.last_caught_time) / 1000)
+                }
+                if (!Config.trackerTimerPaused && !sc_data.pause_time == 0) { 
+                    sc_data.start_time += Date.now() - sc_data.pause_time
+                    syncSCTime(sc_data)
+                    sc_data.pause_time = 0
+                }
                 sc_display += `&8(${minutes}m${seconds.padStart(2, '0')}s)${name_color}`
             }
             
-            var scData = {}
+            let scData = {}
             scData[sc_display] = caught
             display.push(scData)
         }

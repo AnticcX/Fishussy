@@ -11,6 +11,8 @@ const updateData = (sc_name, sc_data) => {
 }
 
 const register_event = (sc_name, sea_creature) => register("chat", ()  => {
+    if (Config.trackerTimerPaused ) { return }
+    
     let { lifetime, sessions } = playerData;
     updateData(sc_name, lifetime)
 

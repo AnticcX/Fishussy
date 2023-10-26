@@ -16,6 +16,7 @@ export const rarity_colors = {
 export const sessionInfo = () => {
     return {
         start_time: Date.now(),
+        pause_time: 0,
         total_caught: 0,
         good_catches: 0,
         great_catches: 0,

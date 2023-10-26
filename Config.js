@@ -1,4 +1,5 @@
 import { @Vigilant, @SelectorProperty, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance'
+import { playerData, sessionInfo } from "./utils"
 
 
 @Vigilant("FishingTracker", "FishingTracker", {
@@ -152,35 +153,22 @@ class Config {
         placeholder: "Start"
     })
     startSession() {
-        /*playerData.sessions[0] = session_info()
+        playerData.sessions[0] = sessionInfo()
         playerData.save()
-        sessionReset = true;*/
     };
 
-    @ButtonProperty({
+    @SwitchProperty({
         name: "Pause Current Session",
         description: "Pause the session burh",
         category: "Sessions",
         subcategory: "Current Sessions",
-        placeholder: "Reset"
     })
+    trackerTimerPaused = false;
     pauseSession() {
-        /*playerData.sessions[0] = session_info()
+        playerData.sessions[0].pause_time = Date.now()
         playerData.save()
-        sessionReset = true;*/
-    };
-
-    @ButtonProperty({
-        name: "Resume Current Session",
-        description: "Resumes the session burh",
-        category: "Sessions",
-        subcategory: "Current Sessions",
-        placeholder: "Resume"
-    })
-    resumeSession() {
-        /*playerData.sessions[0] = session_info()
-        playerData.save()
-        sessionReset = true;*/
+        trackerTimerPaused = true
+        console.log("A")
     };
 
     @ButtonProperty({
