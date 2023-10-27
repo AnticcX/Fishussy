@@ -18,7 +18,6 @@ syncSCTime = (sc_data) => {
 const format_display = (display, sc_data) => {
     let [minutes, seconds] = getTimeFromMs((Date.now() - sc_data.start_time) / 1000)
 
-    display.unshift({"&5&b-:": "&b:-"})
     if (Config.trackerOption == 1) {
         if (Config.trackerTimerPaused) {
             [minutes, seconds] = getTimeFromMs((sc_data.pause_time - sc_data.start_time) / 1000)
