@@ -23,14 +23,14 @@ const format_display = (display, sc_data) => {
         if (Config.trackerTimerPaused) {
             [minutes, seconds] = getTimeFromMs((sc_data.pause_time - sc_data.start_time) / 1000)
         }
-        display.unshift(
-            {"&2&aTimer": `&a${minutes}m${seconds}s`},
-            //{"&4&5Great Catches": "&5" + sc_data.great_catches}, 
-            //{"&3&6Good Catches": "&6" + sc_data.good_catches}
-        )
+        display.unshift({"&2&aTimer": `&a${minutes}m${seconds}s`})
     }
 
-    display.unshift({"&1&eCreatures Caught": "&e" + sc_data.total_caught})
+    display.unshift({"&1&eCreatures Caught": "&e" + sc_data.total_caught},
+                    {"&6&b-:": "&b:-"},
+                    {"&4&5Great Catches": "&5" + sc_data.great_catches},
+                    {"&3&6Good Catches": "&6" + sc_data.good_catches},
+                    {"&5&6Coins": "&6" + sc_data.fished_coins})
 
     let finalDisplay = {}
     for (let line in display) {

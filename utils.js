@@ -20,6 +20,7 @@ export const sessionInfo = () => {
         total_caught: 0,
         good_catches: 0,
         great_catches: 0,
+        fished_coins: 0,
         sea_creatures: {}
     }
 }
@@ -43,6 +44,9 @@ export const playerData = new PogObject(moduleName, {
     sessions: [sessionInfo()],
     lifetime: {
         total_caught: 0,
+        good_catches: 0,
+        great_catches: 0,
+        fished_coins: 0,
         sea_creatures: {}
     }
 }, "data/player_data.json");
