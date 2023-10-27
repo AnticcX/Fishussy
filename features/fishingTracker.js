@@ -10,10 +10,11 @@ const updateSCData = (sc_name, sc_data) => {
     playerData.save();
 }
 
-const updateTreasureData = (treasure, sc_data) => {
+const updateTreasureData = (treasure, sc_data, coins) => {
     if (treasure == "good") sc_data.good_catches++;
     if (treasure == "great") sc_data.great_catches++;
-    if (treasure == "coins") sc_data.fished_coins++;
+    if (treasure == "coins") sc_data.fished_coins += coins;
+    playerData.save()
 }
 
 const register_event = (sc_name, sea_creature) => register("chat", ()  => {
@@ -35,11 +36,16 @@ for ([zone, creatures] of Object.entries(getSeaCreatures())) {
 register("chat", (message, event) => {
     let { lifetime, sessions } = playerData;
     updateTreasureData("good", lifetime)
+    if (message.includes("Coins")) {
+        coins = message.replaceAll(",", "").split(' ')
+        coins = parseInt(coins[2])
+        ChatLib.chat(JSON.stringify(coins))
+    }
 
-    if (message.includes("Coins")) updateTreasureData("coins", lifetime)
+    if (message.includes("Coins")) updateTreasureData("coins", lifetime, coins)
     if (Config.trackerOption == 1 && !Config.trackerTimerPaused) {
         updateTreasureData("good", sessions[0])
-        if (message.includes("Coins")) updateTreasureData("coins", sessions[0])
+        if (message.includes("Coins")) updateTreasureData("coins", sessions[0], coins)
     }
 
 }).setCriteria("GOOD CATCH! ${message}.")
