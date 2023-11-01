@@ -34,6 +34,7 @@ registerWhen(register("renderOverlay", () => {
     Renderer.translate(data.barnTimer.x, data.barnTimer.y)
 
     let [minutes, seconds] = getTimeFromMs(Date.now() - barn_start_time)
+    seconds = (minutes == 0 && seconds.charAt(0) == '0') ? seconds.slice(1) : seconds
     let time_str = minutes != 0 ? `${minutes}m ${seconds}s` : `${seconds}s`
     let sc_count_str = Config.barnMobCapAlert ? `${sc_count >= Config.barnMobCap ? '&c' : '&e'}${sc_count}` : `&e${sc_count}`
     let display = `${(Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider ? '&c' : '&e'}${time_str} &7(${sc_count_str} &bsea creature${(sc_count == 1 ? '' : 's')}&7)`
