@@ -16,11 +16,11 @@ syncSCTime = (sc_data) => {
 }
 
 const format_display = (display, sc_data) => {
-    let [minutes, seconds] = getTimeFromMs((Date.now() - sc_data.start_time) / 1000)
+    let [minutes, seconds] = getTimeFromMs(Date.now() - sc_data.start_time)
 
     if (Config.trackerOption == 1) {
         if (Config.trackerTimerPaused) {
-            [minutes, seconds] = getTimeFromMs((sc_data.pause_time - sc_data.start_time) / 1000)
+            [minutes, seconds] = getTimeFromMs(sc_data.pause_time - sc_data.start_time)
         }
         display.unshift({"&2&aTimer": `&a${minutes}m${seconds}s`})
     }
@@ -69,13 +69,13 @@ const tracker = (sc_data) => {
                 sc_display += ": "
                 if ((Date.now() - player_info.last_caught_time) / 1000 < 0) player_info.last_caught_time = Date.now();
 
-                let [minutes, seconds] = getTimeFromMs((Date.now() - player_info.last_caught_time) / 1000)
+                let [minutes, seconds] = getTimeFromMs(Date.now() - player_info.last_caught_time)
                 if (Config.trackerTimerPaused) {
                     if (sc_data.pause_time == 0) {
                         sc_data.pause_time = Date.now() 
                     } 
                     if ((sc_data.pause_time - player_info.last_caught_time) / 1000 < 0) player_info.last_caught_time = sc_data.pause_time;
-                    [minutes, seconds] = getTimeFromMs((sc_data.pause_time - player_info.last_caught_time) / 1000)
+                    [minutes, seconds] = getTimeFromMs(sc_data.pause_time - player_info.last_caught_time)
                 }
                 if (!Config.trackerTimerPaused && !sc_data.pause_time == 0) { 
                     sc_data.start_time += Date.now() - sc_data.pause_time
@@ -115,7 +115,7 @@ registerWhen(register("renderOverlay", () => {
     if (!display) { return; }
 
     const maxWidth = Math.max(...Object.keys(display).map(a => Renderer.getStringWidth(a)));
-    bg_color = Config.bg_color;
+    bg_color = Config.trackerBGColor;
 
     Renderer.retainTransforms(true);
     Renderer.translate(data.trackerDisplay.x, data.trackerDisplay.y);

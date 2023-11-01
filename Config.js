@@ -1,4 +1,4 @@
-import { @Vigilant, @SelectorProperty, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance'
+import { @Vigilant, @SliderProperty, @SelectorProperty, @TextProperty, @ColorProperty, @ButtonProperty, @SwitchProperty, Color } from 'Vigilance'
 import { playerData, sessionInfo, moduleName } from "./utils"
 
 
@@ -15,6 +15,7 @@ import { playerData, sessionInfo, moduleName } from "./utils"
 class Config {
 
     moveTrackerDisplay = new Gui()
+    moveBarnTimer = new Gui()
 
     // Tracker
     @SwitchProperty({
@@ -61,7 +62,7 @@ class Config {
         category: "General",
         subcategory: "Tracker Display"
     })
-    bg_color = new Color(0, 0, 0, .6);
+    trackerBGColor = new Color(0, 0, 0, .6);
 
     @SwitchProperty({
         name: "Name as Rarity",
@@ -70,6 +71,54 @@ class Config {
         subcategory: "Tracker Display"
     })
     displayNameAsRarity = false;
+
+    // Barn Fishing Timer
+    @SwitchProperty({
+        name: "Barn Fishing Timer",
+        description: "Shows timer and amount of sea creatures near",
+        category: "General",
+        subcategory: "Barn Fishing Timer"
+    })
+    barnTimer = false;
+
+    @ButtonProperty({
+        name: "Move Barn Timer",
+        description: "Moves the timer",
+        category: "General",
+        subcategory: "Barn Fishing Timer",
+        placeholder: "Move"
+    })
+    moveTracker() {
+        this.moveBarnTimer.open()
+    };
+
+    @SliderProperty({
+        name: "Timer Alert",
+        description: "Change the time until the timer dings",
+        category: "General",
+        subcategory: "Barn Fishing Timer",
+        min: 200,
+        max: 400
+    })
+    barnTimerSlider = 300;
+
+    /*** 
+    @SwitchProperty({
+        name: "Timer Background",
+        description: "Adds a background behind the display",
+        category: "General",
+        subcategory: "Barn Fishing Timer"
+    })
+    barnTimerBackground = false;
+
+    @ColorProperty({
+        name: "Timer Background Color",
+        description: "Pick a color",
+        category: "General",
+        subcategory: "Barn Fishing Timer"
+    })
+    barnTimerBGColor = new Color(0, 0, 0, .6); 
+    ***/
 
     // ZONES / EVENTS TOGGLE
     // Default Creature Category

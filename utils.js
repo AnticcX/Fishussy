@@ -37,6 +37,10 @@ export const data = new PogObject(moduleName, {
     trackerDisplay: {
         x: 0,
         y: 0
+    },
+    barnTimer: {
+        x: 0,
+        y: 0
     }
 }, "data/data.json");
 
@@ -75,7 +79,8 @@ export function toTitleCase(str) {
 
 // Takes miliseconds and changes it to readible minutes and seconds
 export const getTimeFromMs = (miliseconds) => {
-    return [parseInt(miliseconds / 60), parseInt(miliseconds % 60).toString().padStart(2, '0')]
+    seconds = miliseconds / 1000
+    return [parseInt(seconds / 60), parseInt(seconds % 60).toString().padStart(2, '0')]
 }
 
 // Gets the center of the slot and returns the x and y coords
