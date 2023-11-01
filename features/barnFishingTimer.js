@@ -1,4 +1,4 @@
-import { registerWhen, data, getTimeFromMs } from "../utils"
+import { registerWhen, data, getTimeFromMs, playerData } from "../utils"
 import Config from "../Config"
 
 let sea_creatures = [
@@ -41,24 +41,33 @@ registerWhen(register("renderOverlay", () => {
     Renderer.drawString(display, 0, 0);
     Renderer.retainTransforms(false);
 
-    if (Config.barnMobCapAlert && sc_count >= Config.barnMobCap) { World.playSound("random.orb", 300, 0.9); }
-    if ((Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider) { World.playSound("random.orb", 300, 1); }
+    if (Config.barnMobCapAlert && sc_count >= Config.barnMobCap) { World.playSound("random.orb", 0.5, 0.9); }
+    if ((Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider) { World.playSound("random.orb", 0.5, 1.1); }
 
 }), () => Config.barnTimer);
 
 
+export let barnSCList = {}
 const EntityArmorStand = Java.type("net.minecraft.entity.item.EntityArmorStand")
 register('step', () => {
     if (!Config.barnTimer) { return; }
     sc_count = 0
+    barnSCList = {}
     World.getAllEntitiesOfType(EntityArmorStand).forEach(entity => {
         let name = entity?.getName().removeFormatting()
         if (!name || !name.includes("[Lv")) { return; }
         sc_name = name.substring(name.indexOf("] ") + 2).split(" ")
         sc_name.pop()
+        if (sc_name[0].toLowerCase() == "thunder") { sc_name.pop() }
+        if (sc_name[0].toLowerCase() == "lord" && sc_name[1].toLowerCase() == "jawbus") { sc_name.pop() }
+
         sc_name = sc_name.join("_").toLowerCase()
         if (sc_name.includes("acorrupted")) { sc_name = sc_name.slice(0, -1).slice(11) }
         if (!(sea_creatures.includes(sc_name))) { return; }
+        if (!Object.keys(barnSCList).includes(sc_name)) { barnSCList[sc_name] = 0; }
         sc_count += 1
+        barnSCList[sc_name] += 1
     })
+    playerData.barn_breakdown = barnSCList;
+    playerData.save()
 })

@@ -52,7 +52,8 @@ export const playerData = new PogObject(moduleName, {
         great_catches: 0,
         fished_coins: 0,
         sea_creatures: {}
-    }
+    },
+    barn_breakdown: {}
 }, "data/player_data.json");
 
 // Returns the full list of sea creatures
