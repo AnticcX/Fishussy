@@ -35,10 +35,14 @@ registerWhen(register("renderOverlay", () => {
 
     let [minutes, seconds] = getTimeFromMs(Date.now() - barn_start_time)
     let time_str = minutes != 0 ? `${minutes}m ${seconds}s` : `${seconds}s`
-    let display = `${(Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider ? '&c' : '&e'}${time_str} &7(${sc_count >= 60 ? '&c' : '&e'}${sc_count} &bsea creature${(sc_count == 1 ? '' : 's')}&7)`
+    let sc_count_str = Config.barnMobCapAlert ? `${sc_count >= Config.barnMobCap ? '&c' : '&e'}${sc_count}` : `&e${sc_count}`
+    let display = `${(Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider ? '&c' : '&e'}${time_str} &7(${sc_count_str} &bsea creature${(sc_count == 1 ? '' : 's')}&7)`
 
     Renderer.drawString(display, 0, 0);
     Renderer.retainTransforms(false);
+
+    if (Config.barnMobCapAlert && sc_count >= Config.barnMobCap) { World.playSound("random.orb", 300, 0.9); }
+    if ((Date.now() - barn_start_time) / 1000 >= Config.barnTimerSlider) { World.playSound("random.orb", 300, 1); }
 
 }), () => Config.barnTimer);
 

@@ -81,6 +81,14 @@ class Config {
     })
     barnTimer = false;
 
+    @SwitchProperty({
+        name: "Barn Mob Cap Alert",
+        description: "Plays dings when reaching sea creature mob cap",
+        category: "General",
+        subcategory: "Barn Fishing Timer"
+    })
+    barnMobCapAlert = false;
+
     @ButtonProperty({
         name: "Move Barn Timer",
         description: "Moves the timer",
@@ -101,6 +109,16 @@ class Config {
         max: 400
     })
     barnTimerSlider = 300;
+
+    @SliderProperty({
+        name: "Mob Cap",
+        description: "Change the mob cap until ding alert",
+        category: "General",
+        subcategory: "Barn Fishing Timer",
+        min: 20,
+        max: 60
+    })
+    barnMobCap = 60;
 
     /*** 
     @SwitchProperty({
