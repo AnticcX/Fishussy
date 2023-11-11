@@ -96,7 +96,7 @@ class Config {
         subcategory: "Barn Fishing Timer",
         placeholder: "Move"
     })
-    moveTracker() {
+    moveBarnTracker() {
         this.moveBarnTimer.open()
     };
 
